@@ -1,0 +1,21 @@
+@import-normalize;
+
+html,
+body {
+  background-color: #fff;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+h3 {
+  padding: 1rem 0;
+}
+
+.main {
+  flex-grow: 1;
+}
