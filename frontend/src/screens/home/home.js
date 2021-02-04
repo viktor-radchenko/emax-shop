@@ -5,7 +5,7 @@ import Product from "../../components/product";
 
 import products from "../../products";
 
-function Home() {
+function HomeScreen() {
   return (
     <>
       <h1>Latest Products</h1>
@@ -20,4 +20,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomeScreen;
