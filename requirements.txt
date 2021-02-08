@@ -4,3 +4,4 @@ flake8
 djangorestframework
 python-dotenv
 pytest-django
+pillow

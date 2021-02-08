@@ -1,22 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Button, Card } from "react-bootstrap";
-import axios from "axios";
 
+import { fetchProduct } from "../../services";
 import Rating from "../../components/rating";
 
-import products from "../../products";
-
 function ProductScreen({ match }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      const { data } = await axios.get(`/api/products/${match.params.id}`);
-      setProduct(data);
-    };
-    fetchProduct();
-  }, []);
+    setLoading(true);
+    fetchProduct(match.params.id)
+      .then((data) => setProduct(data))
+      .catch((e) => {
+        console.log(e);
+        setError(e.message);
+      });
+    setLoading(false);
+  }, [match.params.id]);
+
+  if (loading) {
+    return <h1>LOADING...</h1>;
+  }
+
+  if (error) {
+    return <h1>Oops... Something went wrong. {error}. Please try again.</h1>;
+  }
 
   return (
     <div>
