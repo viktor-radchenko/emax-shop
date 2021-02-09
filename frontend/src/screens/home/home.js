@@ -1,32 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 
 import Product from "../../components/product";
-import { fetchProducts } from "../../services";
+import { listProducts } from "../../actions";
 
 function HomeScreen() {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setLoading(true);
-    fetchProducts()
-      .then((data) => setProducts(data))
-      .catch((e) => {
-        console.log(e);
-        setError(e.message);
-      });
-    setLoading(false);
+    dispatch(listProducts());
   }, []);
 
-  if (loading) {
-    return <h1>LOADING...</h1>;
-  }
-
-  if (error) {
-    return <h1>Oops... Something went wrong. {error}. Please try again.</h1>;
-  }
+  const products = [];
 
   return (
     <>
