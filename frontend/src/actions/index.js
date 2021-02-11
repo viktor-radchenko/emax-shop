@@ -1,3 +1,3 @@
-import { listProducts } from "./product-actions";
+import { listProducts, listProductDetails } from "./product-actions";
 
-export { listProducts };
+export { listProducts, listProductDetails };

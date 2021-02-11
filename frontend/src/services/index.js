@@ -1,3 +1,3 @@
-import { fetchProducts, fetchProduct } from "./emax-services";
+import { fetchProducts, fetchProduct, _transformProduct } from "./emax-services";
 
-export { fetchProducts, fetchProduct };
+export { fetchProducts, fetchProduct, _transformProduct };

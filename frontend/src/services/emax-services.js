@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const _transformProduct = (product) => {
+export const _transformProduct = (product) => {
   return {
     _id: product.id,
     name: product.name,
