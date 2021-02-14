@@ -7,6 +7,8 @@ import {
   PRODUCT_DETAILS_FAIL,
 } from "./product-constants";
 
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "./cart-constants";
+
 export {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -14,4 +16,6 @@ export {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
 };
