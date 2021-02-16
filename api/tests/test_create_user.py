@@ -1,7 +1,13 @@
 import pytest
 
-# from django.urls import reverse
+from django.urls import reverse
 from django.contrib.auth import get_user_model
+
+
+def test_user_routes(client):
+    url = reverse('token_obtain_pair')
+    response = client.get(url)
+    assert response.status_code == 405
 
 
 @pytest.mark.django_db
