@@ -6,11 +6,6 @@ from api.serializers import ProductSerializer
 
 
 @api_view(["GET", "POST", "DELETE"])
-def get_routes(request):
-    return Response("Hello, world!")
-
-
-@api_view(["GET", "POST", "DELETE"])
 def get_products(request):
     products = Product.objects.all()
     serializer = ProductSerializer(products, many=True)
@@ -19,6 +14,9 @@ def get_products(request):
 
 @api_view(["GET"])
 def get_product(request, pk):
-    product = Product.objects.get(id=pk)
-    serializer = ProductSerializer(product)
-    return Response(serializer.data)
+    try:
+        product = Product.objects.get(id=pk)
+        serializer = ProductSerializer(product)
+        return Response(serializer.data)
+    except Product.DoesNotExist as e:
+        return Response({'detail': str(e)})
