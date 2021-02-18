@@ -2,13 +2,20 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import jwt_decode from "jwt-decode";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { productListReducer, productDetailsReducer, cartReducer, userLoginReducer } from "./reducers";
+import {
+  productListReducer,
+  productDetailsReducer,
+  cartReducer,
+  userLoginReducer,
+  userRegisterReducer,
+} from "./reducers";
 
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   cart: cartReducer,
   userInfo: userLoginReducer,
+  userRegister: userRegisterReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [];
