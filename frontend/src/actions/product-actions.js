@@ -12,19 +12,16 @@ import {
 } from "../constants";
 
 export const listProducts = () => async (dispatch) => {
-  console.log("Starting list product action");
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
     const { data } = await axios.get("/api/products");
-    console.log("This is data:", data);
     const transformedData = data.map((product) => _transformProduct(product));
-    console.log(transformedData);
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: transformedData });
   } catch (error) {
     dispatch({
       type: PRODUCT_LIST_FAIL,
-      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+      payload: error.response && error.response.data.detail ? error.response.data.detail : error.message,
     });
   }
 };
@@ -40,7 +37,7 @@ export const listProductDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
-      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+      payload: error.response && error.response.data.detail ? error.response.data.detail : error.message,
     });
   }
 };
