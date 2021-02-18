@@ -16,7 +16,7 @@ export const _transformProduct = (product) => {
 };
 
 export const fetchProducts = async () => {
-  const { data } = await axios.get("/api/products");
+  const { data } = await axios.get("/api/products/");
   const transformedData = data.map((product) => _transformProduct(product));
   return transformedData;
 };
