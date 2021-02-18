@@ -67,7 +67,7 @@ function LoginScreen({ location, history }) {
 
       <Row className='py-3'>
         <Col>
-          New customer? <Link to={redirect ? `/register?redirect={$redirect}` : "/register"}>Register an account</Link>
+          New customer? <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>Register an account</Link>
         </Col>
       </Row>
     </FormContainer>
