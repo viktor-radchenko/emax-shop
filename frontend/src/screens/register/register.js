@@ -55,6 +55,7 @@ function RegisterScreen({ location, history }) {
             <Form.Label>Email Address</Form.Label>
             <Form.Control
               type='email'
+              required
               placeholder='Enter email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}></Form.Control>
@@ -64,6 +65,7 @@ function RegisterScreen({ location, history }) {
             <Form.Label>Username</Form.Label>
             <Form.Control
               type='text'
+              required
               placeholder='Username'
               value={username}
               onChange={(e) => setUsername(e.target.value)}></Form.Control>
@@ -73,6 +75,7 @@ function RegisterScreen({ location, history }) {
             <Form.Label>First name</Form.Label>
             <Form.Control
               type='text'
+              required
               placeholder='First name'
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}></Form.Control>
@@ -82,6 +85,7 @@ function RegisterScreen({ location, history }) {
             <Form.Label>Email Address</Form.Label>
             <Form.Control
               type='password'
+              required
               placeholder='Password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}></Form.Control>
@@ -91,13 +95,14 @@ function RegisterScreen({ location, history }) {
             <Form.Label>Confirm password</Form.Label>
             <Form.Control
               type='password'
+              required
               placeholder='Confirm password'
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}></Form.Control>
           </Form.Group>
 
           <Button type='submit' variant='primary'>
-            Register
+            required Register
           </Button>
         </Form>
       )}

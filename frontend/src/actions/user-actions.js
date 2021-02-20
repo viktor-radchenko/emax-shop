@@ -62,11 +62,15 @@ export const register = (email, password, username, first_name) => async (dispat
       { email: email, password: password, username: username, first_name: first_name },
       config
     );
-    const decodedJWT = jwt_decode(data.access);
 
     dispatch({
       type: USER_REGISTER_SUCCESS,
-      payload: decodedJWT,
+      payload: data,
+    });
+
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: data,
     });
 
     localStorage.setItem("userInfo", JSON.stringify(data));
