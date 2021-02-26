@@ -15,6 +15,18 @@ export const _transformProduct = (product) => {
   };
 };
 
+export const _transformUserInfo = (user) => {
+  return {
+    email: user.email,
+    exp: user.exp,
+    firstName: user.first_name,
+    jti: user.jti,
+    tokenType: user.token_type,
+    _id: user.user_id,
+    username: user.username,
+  };
+};
+
 export const fetchProducts = async () => {
   const { data } = await axios.get("/api/products/");
   const transformedData = data.map((product) => _transformProduct(product));
