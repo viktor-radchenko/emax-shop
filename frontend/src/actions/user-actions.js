@@ -1,6 +1,8 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
+import { _transformUserInfo } from "../services";
+
 import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -9,6 +11,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_FAIL,
 } from "../constants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -24,10 +29,12 @@ export const login = (email, password) => async (dispatch) => {
     };
     const { data } = await axios.post("/api/auth/login/", { email: email, password: password }, config);
     const decodedJWT = jwt_decode(data.access);
+    const transformedUserData = _transformUserInfo(decodedJWT);
+    transformedUserData.token = data.access;
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: decodedJWT,
+      payload: transformedUserData,
     });
 
     localStorage.setItem("userInfo", JSON.stringify(data));
@@ -77,6 +84,37 @@ export const register = (email, password, username, first_name) => async (dispat
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
+      payload: error.response && error.response.data.detail ? error.response.data.detail : error.message,
+    });
+  }
+};
+
+export const getUserDetail = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_DETAILS_REQUEST,
+    });
+
+    const {
+      userInfo: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/auth/${id}/`, config);
+
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_DETAILS_FAIL,
       payload: error.response && error.response.data.detail ? error.response.data.detail : error.message,
     });
   }
