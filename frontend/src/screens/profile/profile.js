@@ -25,6 +25,7 @@ function ProfileScreen({ history }) {
   // redirect user in case he/she is logged in
   useEffect(() => {
     if (!userInfo) {
+      // check why profile triggers history push to /login
       console.log("User INFO:", userInfo);
       history.push("/login");
     } else {
