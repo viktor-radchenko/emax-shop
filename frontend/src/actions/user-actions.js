@@ -28,10 +28,14 @@ export const login = (email, password) => async (dispatch) => {
       },
     };
     const { data } = await axios.post("/api/auth/login/", { email: email, password: password }, config);
+    console.log("Fetched data from API:", data);
     const decodedJWT = jwt_decode(data.access);
+    console.log("Decoded token:", decodedJWT);
     const transformedUserData = _transformUserInfo(decodedJWT);
-    transformedUserData.token = data.access;
+    console.log("Transormed user data from token:", transformedUserData);
 
+    transformedUserData.token = data.access;
+    console.log("Added token to user data", transformedUserData);
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: transformedUserData,
