@@ -18,6 +18,7 @@ function ProfileScreen({ history }) {
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.userDetails);
+  console.log("User details extracted from store", userDetails);
   const { user, error, loading } = userDetails;
   const userLogin = useSelector((state) => state.userInfo);
   const { userInfo } = userDetails;
