@@ -5,7 +5,7 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 
 import Loader from "../../components/loader";
 import Message from "../../components/message";
-import { getUserDetail } from "../../actions";
+import { getUserDetails } from "../../actions";
 
 function ProfileScreen({ history }) {
   const [email, setEmail] = useState("");
@@ -18,23 +18,20 @@ function ProfileScreen({ history }) {
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.userDetails);
-  console.log("User details extracted from store", userDetails);
   const { user, error, loading } = userDetails;
+
   const userLogin = useSelector((state) => state.userInfo);
-  const { userInfo } = userDetails;
+  const { userInfo } = userLogin;
 
   // redirect user in case he/she is logged in
   useEffect(() => {
     if (!userInfo) {
-      // check why profile triggers history push to /login
-      console.log("User INFO:", userInfo);
       history.push("/login");
     } else {
-      console.log("this is user:", user);
-      if (!user || user.firstName) {
-        dispatch(getUserDetail(`profile`));
+      if (!user || user.name) {
+        dispatch(getUserDetails(`profile`));
       } else {
-        setFirstName(user.firstName);
+        setFirstName(user.name);
         setEmail(user.email);
       }
     }
@@ -46,7 +43,8 @@ function ProfileScreen({ history }) {
     if (password !== confirmPassword) {
       setValidationError("Passwords do not match");
     } else {
-      dispatch(getUserDetail());
+      // dispatch(getUserDetails("profile"));
+      console.log("Updating profile");
     }
   };
 
