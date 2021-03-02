@@ -5,7 +5,7 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 
 import Loader from "../../components/loader";
 import Message from "../../components/message";
-import { getUserDetails } from "../../actions";
+import { getUserDetails, updateUserProfile } from "../../actions";
 
 function ProfileScreen({ history }) {
   const [email, setEmail] = useState("");
@@ -48,7 +48,15 @@ function ProfileScreen({ history }) {
       setValidationError("Passwords do not match");
     } else {
       // dispatch(getUserDetails("profile"));
-      console.log("Updating profile");
+      dispatch(
+        updateUserProfile({
+          id: user._id,
+          email: email,
+          username: username,
+          first_name: firstName,
+          password: password,
+        })
+      );
     }
   };
 
@@ -96,7 +104,6 @@ function ProfileScreen({ history }) {
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type='password'
-                required
                 placeholder='Password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}></Form.Control>
@@ -106,7 +113,6 @@ function ProfileScreen({ history }) {
               <Form.Label>Confirm password</Form.Label>
               <Form.Control
                 type='password'
-                required
                 placeholder='Confirm password'
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}></Form.Control>
