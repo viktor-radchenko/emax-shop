@@ -93,7 +93,7 @@ export const register = (email, password, username, first_name) => async (dispat
   }
 };
 
-export const getUserDetail = (id) => async (dispatch, getState) => {
+export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_DETAILS_REQUEST,
