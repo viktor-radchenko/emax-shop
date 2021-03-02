@@ -9,6 +9,7 @@ import {
   userLoginReducer,
   userRegisterReducer,
   userDetailsReducer,
+  userUpdateProfileReducer,
 } from "./reducers";
 
 import { _transformUserInfo } from "./services";
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   userInfo: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [];
