@@ -1,6 +1,6 @@
 import { productListReducer, productDetailsReducer } from "./product-reducer";
 import { cartReducer } from "./cart-reducer";
-import { userLoginReducer, userRegisterReducer, userDetailsReducer } from "./user-reducer";
+import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer } from "./user-reducer";
 
 export {
   productListReducer,
@@ -9,4 +9,5 @@ export {
   userLoginReducer,
   userRegisterReducer,
   userDetailsReducer,
+  userUpdateProfileReducer,
 };
