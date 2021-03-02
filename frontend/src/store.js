@@ -11,6 +11,8 @@ import {
   userDetailsReducer,
 } from "./reducers";
 
+import { _transformUserInfo } from "./services";
+
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
@@ -21,9 +23,10 @@ const reducer = combineReducers({
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [];
-const userInfoFromStorage = localStorage.getItem("userInfo")
+const localUserInfo = localStorage.getItem("userInfo")
   ? jwt_decode(JSON.parse(localStorage.getItem("userInfo")).access)
   : null;
+const userInfoFromStorage = localUserInfo ? _transformUserInfo(localUserInfo) : null;
 
 const initialState = {
   cart: {
