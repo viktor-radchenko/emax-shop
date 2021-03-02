@@ -28,11 +28,8 @@ export const login = (email, password) => async (dispatch) => {
       },
     };
     const { data } = await axios.post("/api/auth/login/", { email: email, password: password }, config);
-    console.log("Fetched data from API:", data);
     const decodedJWT = jwt_decode(data.access);
-    console.log("Decoded token:", decodedJWT);
     const transformedUserData = _transformUserInfo(decodedJWT);
-    console.log("Transormed user data from token:", transformedUserData);
 
     transformedUserData.token = data.access;
     console.log("Added token to user data", transformedUserData);
@@ -102,6 +99,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     const {
       userInfo: { userInfo },
     } = getState();
+    console.log("ACTIONS: userInfo", userInfo);
 
     const config = {
       headers: {
@@ -110,7 +108,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/auth/${id}/`, config);
+    const { data } = await axios.get(`/api/users/${id}/`, config);
 
     dispatch({
       type: USER_DETAILS_SUCCESS,

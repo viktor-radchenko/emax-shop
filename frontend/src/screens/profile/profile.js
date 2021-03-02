@@ -19,6 +19,7 @@ function ProfileScreen({ history }) {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user, error, loading } = userDetails;
+  console.log("Retrieved user details from state", user);
 
   const userLogin = useSelector((state) => state.userInfo);
   const { userInfo } = userLogin;
@@ -28,14 +29,17 @@ function ProfileScreen({ history }) {
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (!user || user.name) {
+      if (!user || !user.name) {
+        console.log("Fetching bloody user data");
         dispatch(getUserDetails(`profile`));
       } else {
+        console.log("User object is present, boo hoo");
         setFirstName(user.name);
         setEmail(user.email);
+        setUsername(user.username);
       }
     }
-  }, [history, userInfo]);
+  }, [dispatch, history, user, userInfo]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,6 +56,67 @@ function ProfileScreen({ history }) {
     <Row>
       <Col md={3}>
         <h2>User Profile</h2>
+        {validationError && <Message variant='danger'>{validationError}</Message>}
+        {error && <Message variant='danger'>{error}</Message>}
+        {loading ? (
+          <Loader />
+        ) : (
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId='email'>
+              <Form.Label>Email Address</Form.Label>
+              <Form.Control
+                type='email'
+                required
+                placeholder='Enter email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='username'>
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type='text'
+                required
+                placeholder='Username'
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='firstName'>
+              <Form.Label>First name</Form.Label>
+              <Form.Control
+                type='text'
+                required
+                placeholder='First name'
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='password'>
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type='password'
+                required
+                placeholder='Password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='confirmPassword'>
+              <Form.Label>Confirm password</Form.Label>
+              <Form.Control
+                type='password'
+                required
+                placeholder='Confirm password'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}></Form.Control>
+            </Form.Group>
+
+            <Button type='submit' variant='primary'>
+              Update Profile
+            </Button>
+          </Form>
+        )}
       </Col>
       <Col md={9}>
         <h2>My orders</h2>
