@@ -23,6 +23,7 @@ function ProfileScreen({ history }) {
 
   const userLogin = useSelector((state) => state.userInfo);
   const { userInfo } = userLogin;
+  console.log("Extracted user info from state", userInfo);
 
   // redirect user in case he/she is logged in
   useEffect(() => {
