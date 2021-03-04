@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-import { _transformUserInfo } from "../services";
+import { _transformUserInfo, _verifyToken } from "../services";
 
 import {
   USER_LOGIN_REQUEST,
@@ -36,7 +36,6 @@ export const login = (email, password) => async (dispatch) => {
     const transformedUserData = _transformUserInfo(decodedJWT);
 
     transformedUserData.token = data.access;
-    console.log("Added token to user data", transformedUserData);
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: transformedUserData,
@@ -103,7 +102,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     const {
       userInfo: { userInfo },
     } = getState();
-    console.log("ACTIONS: userInfo", userInfo);
 
     const config = {
       headers: {
@@ -119,9 +117,13 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       payload: data,
     });
   } catch (error) {
+    _verifyToken();
     dispatch({
       type: USER_DETAILS_FAIL,
-      payload: error.response && error.response.data.detail ? error.response.data.detail : error.message,
+      payload:
+        error.response && error.response.data.messages[0].message
+          ? error.response.data.messages[0].message
+          : error.message,
     });
   }
 };
@@ -135,7 +137,6 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     const {
       userInfo: { userInfo },
     } = getState();
-    console.log("ACTIONS: userInfo", userInfo);
 
     const config = {
       headers: {

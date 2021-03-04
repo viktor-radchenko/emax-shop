@@ -19,11 +19,9 @@ function ProfileScreen({ history }) {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user, error, loading } = userDetails;
-  console.log("Retrieved user details from state", user);
 
   const userLogin = useSelector((state) => state.userInfo);
   const { userInfo } = userLogin;
-  console.log("Extracted user info from state", userInfo);
 
   // redirect user in case he/she is logged in
   useEffect(() => {
@@ -31,10 +29,8 @@ function ProfileScreen({ history }) {
       history.push("/login");
     } else {
       if (!user || !user.name) {
-        console.log("Fetching bloody user data");
         dispatch(getUserDetails(`profile`));
       } else {
-        console.log("User object is present, boo hoo");
         setFirstName(user.name);
         setEmail(user.email);
         setUsername(user.username);

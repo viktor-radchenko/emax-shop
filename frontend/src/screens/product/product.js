@@ -15,7 +15,6 @@ function ProductScreen({ match, history }) {
 
   const addToCartHandler = (id) => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
-    console.log(`Product with ID ${id} was added to the cart`);
   };
 
   useEffect(() => {

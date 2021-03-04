@@ -1,4 +1,16 @@
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+
+export const _verifyToken = () => {
+  const localUserInfo = localStorage.getItem("userInfo")
+    ? jwt_decode(JSON.parse(localStorage.getItem("userInfo")).access)
+    : null;
+
+  if (localUserInfo === null) {
+  } else {
+    if (Date.now() >= localUserInfo.exp * 1000) localStorage.removeItem("userInfo");
+  }
+};
 
 export const _transformProduct = (product) => {
   return {

@@ -12,7 +12,7 @@ import {
   userUpdateProfileReducer,
 } from "./reducers";
 
-import { _transformUserInfo } from "./services";
+import { _transformUserInfo, _verifyToken } from "./services";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -25,6 +25,9 @@ const reducer = combineReducers({
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [];
+
+_verifyToken();
+
 const localUserInfo = localStorage.getItem("userInfo")
   ? jwt_decode(JSON.parse(localStorage.getItem("userInfo")).access)
   : null;

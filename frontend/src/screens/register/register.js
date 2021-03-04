@@ -27,7 +27,6 @@ function RegisterScreen({ location, history }) {
   // redirect user in case he/she is logged in
   useEffect(() => {
     if (userInfo) {
-      console.log("User info:", userInfo);
       history.push(redirect);
     }
   }, [history, userInfo, redirect]);

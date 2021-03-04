@@ -27,7 +27,6 @@ export const listProducts = () => async (dispatch) => {
 };
 
 export const listProductDetails = (id) => async (dispatch) => {
-  console.log("Starting list product action");
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
