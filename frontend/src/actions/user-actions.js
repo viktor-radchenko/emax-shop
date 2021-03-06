@@ -103,6 +103,8 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       userInfo: { userInfo },
     } = getState();
 
+    if (userInfo.token === "undefined") return;
+
     const config = {
       headers: {
         "Content-type": "application/json",

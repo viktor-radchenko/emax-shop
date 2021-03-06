@@ -23,6 +23,9 @@ function ProfileScreen({ history }) {
   const userLogin = useSelector((state) => state.userInfo);
   const { userInfo } = userLogin;
 
+  const userUpdateProfile = useSelector((state) => state.userInfo);
+  const { success } = userUpdateProfile;
+
   // redirect user in case he/she is logged in
   useEffect(() => {
     if (!userInfo) {
