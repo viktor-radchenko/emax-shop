@@ -81,7 +81,7 @@ function RegisterScreen({ location, history }) {
           </Form.Group>
 
           <Form.Group controlId='password'>
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label>Password</Form.Label>
             <Form.Control
               type='password'
               required
@@ -101,7 +101,7 @@ function RegisterScreen({ location, history }) {
           </Form.Group>
 
           <Button type='submit' variant='primary'>
-            required Register
+            Register
           </Button>
         </Form>
       )}
