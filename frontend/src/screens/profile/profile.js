@@ -6,6 +6,7 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 import Loader from "../../components/loader";
 import Message from "../../components/message";
 import { getUserDetails, updateUserProfile } from "../../actions";
+import { USER_UPDATE_PROFILE_RESET } from "../../constants";
 
 function ProfileScreen({ history }) {
   const [email, setEmail] = useState("");
@@ -57,6 +58,7 @@ function ProfileScreen({ history }) {
           password: password,
         })
       );
+      setValidationError("");
     }
   };
 
