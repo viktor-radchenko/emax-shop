@@ -73,7 +73,7 @@ export const register = (email, password, username, first_name) => async (dispat
       { email: email, password: password, username: username, first_name: first_name },
       config
     );
-    const decodedJWT = jwt_decode(data.token);
+    const decodedJWT = jwt_decode(data.access);
     console.log("Registration token decode", decodedJWT);
     const transformedUserData = _transformUserInfo(decodedJWT);
 
@@ -108,21 +108,19 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       userInfo: { userInfo },
     } = getState();
 
-    if (typeof userInfo.token !== "undefined") {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      };
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
 
-      const { data } = await axios.get(`/api/users/${id}/`, config);
+    const { data } = await axios.get(`/api/users/${id}/`, config);
 
-      dispatch({
-        type: USER_DETAILS_SUCCESS,
-        payload: data,
-      });
-    }
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data,
+    });
   } catch (error) {
     dispatch({
       type: USER_DETAILS_FAIL,
@@ -154,10 +152,11 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     const { data } = await axios.put(`/api/users/profile/update`, user, config);
     console.log("Totally messed up data", data);
 
-    const decodedJWT = jwt_decode(data.token);
+    const decodedJWT = jwt_decode(data.access);
     const transformedUserData = _transformUserInfo(decodedJWT);
 
-    transformedUserData.token = data.token;
+    transformedUserData.token = data.access;
+    console.log("THIS DATA ARRRGHHH", transformedUserData);
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,
