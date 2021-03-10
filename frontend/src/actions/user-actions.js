@@ -156,7 +156,6 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     const transformedUserData = _transformUserInfo(decodedJWT);
 
     transformedUserData.token = data.access;
-    console.log("THIS DATA ARRRGHHH", transformedUserData);
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,

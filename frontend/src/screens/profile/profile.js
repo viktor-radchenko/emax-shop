@@ -24,7 +24,7 @@ function ProfileScreen({ history }) {
   const userLogin = useSelector((state) => state.userInfo);
   const { userInfo } = userLogin;
 
-  const userUpdateProfile = useSelector((state) => state.userInfo);
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
   // redirect user in case he/she is logged in
@@ -32,7 +32,8 @@ function ProfileScreen({ history }) {
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (!user || !user.name) {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails(`profile`));
       } else {
         setFirstName(user.name);
@@ -40,7 +41,7 @@ function ProfileScreen({ history }) {
         setUsername(user.username);
       }
     }
-  }, [dispatch, history, user, userInfo]);
+  }, [dispatch, history, user, userInfo, success]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
