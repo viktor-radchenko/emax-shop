@@ -26,12 +26,11 @@ const reducer = combineReducers({
 
 const cartItemsFromStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [];
 
-_verifyToken();
-
 const localUserInfo = localStorage.getItem("userInfo")
   ? jwt_decode(JSON.parse(localStorage.getItem("userInfo")).access)
   : null;
 const userInfoFromStorage = localUserInfo ? _transformUserInfo(localUserInfo) : null;
+if (userInfoFromStorage) userInfoFromStorage.token = JSON.parse(localStorage.getItem("userInfo")).access;
 
 const initialState = {
   cart: {
