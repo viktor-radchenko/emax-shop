@@ -1,7 +1,10 @@
+import jwt
+
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
+from django.conf import settings
 from api.models import CustomUser
 
 
@@ -37,12 +40,25 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializerWithToken(UserSerializer):
-    token = serializers.SerializerMethodField(read_only=True)
+    access = serializers.SerializerMethodField(read_only=True)
+    refresh = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'email', 'name', 'is_admin', 'token']
+        fields = ['access', 'refresh']
 
-    def get_token(self, obj):
+    def get_access(self, obj):
         token = RefreshToken.for_user(obj)
-        return str(token.access_token)
+        access_token = token.access_token
+
+        decode_jwt = jwt.decode(str(access_token), settings.SECRET_KEY, algorithms=['HS256'])
+        decode_jwt['username'] = obj.username
+        decode_jwt['email'] = obj.email
+        decode_jwt['first_name'] = obj.first_name
+
+        encoded_access_token = jwt.encode(decode_jwt, settings.SECRET_KEY, algorithm='HS256')
+        return str(encoded_access_token)
+
+    def get_refresh(self, obj):
+        token = RefreshToken.for_user(obj)
+        return str(token)

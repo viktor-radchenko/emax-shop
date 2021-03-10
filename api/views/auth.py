@@ -7,7 +7,7 @@ from rest_framework import status
 
 
 from api.models import CustomUser
-from api.serializers import UserSerializerWithToken, MyTokenObtainPairSerializer
+from api.serializers import UserSerializerWithToken
 
 
 @api_view(["POST"])
@@ -20,7 +20,7 @@ def register_user(request):
             first_name=data.get('first_name'),
             password=make_password(data.get('password'))
         )
-        serializer = MyTokenObtainPairSerializer.get_token(user)
+        serializer = UserSerializerWithToken(user, many=False)
         return Response(serializer.data)
     except IntegrityError:
         message = {'detail': 'User with this email is already registered'}
